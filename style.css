@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#navbar-text{
+    font-size: 1.8rem;
+
+}
+header{
+    background-color: #41b0bf;
+    height: 30vw;
+}
+a{
+    text-decoration: none;
+    font-family: monospace;
+    color: whitesmoke;
+    padding-left: 15%;
+}
+a:hover{
+    text-decoration: none;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 538px) {
+    a{
+      font-size: 1.4rem;
+    }
+  }
+  @media only screen and (max-width: 376px) {
+    a{
+      font-size: 1.0rem;
+    }
+  }
+ .profile-img{
+        border-radius: 50%;
+        width: 220px;
+        height: 220px;
+        margin-left: 25%;
+
+}
+.container-bg{
+    background-color: whitesmoke;
+}
+#about-me-text{
+    font-family: cursive;
+    font-size: 1.2rem;
+}
+
+section{
+    background-color: #41b0bf;
+}
+h3{
+    color: white;
+}
+ul{
+    list-style: none;
+}
+.skill-icon-img{
+    width: 3rem;
+    height: 3rem;
+    margin: auto;
+}
+
+#skill-text{
+    color:snow;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+}
+footer{
+    background-color: #41b0bf;
+    height: 100px auto;
+}
+@media only screen and (max-width: 736px){
+    footer{
+        height: 120px;
+    }
+}
+.medialinks{
+    width: 3rem;
+    height: 3rem;
+    margin-top: 2.5rem;
+}
+/* @media only screen and (max-width: 736px){
+    .medialinks{
+        width: 4px;
+        height: 4px;
+        margin-top: 0;
+    }
+} */
+footer div a{
+    cursor: pointer;
+}
+.end{
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: fantasy;
+    padding: 1.5%;
+}
