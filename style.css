@@ -8,7 +8,12 @@
 }
 header{
     background-color: #41b0bf;
-    height: 30vh;
+    height: 75vh;
+}
+@media screen and (max-width: 538px){
+    header{
+        height: 25vh;
+    }
 }
 a{
     text-decoration: none;
