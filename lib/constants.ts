@@ -12,10 +12,10 @@ export const siteConfig: SiteConfig = {
   author: {
     name: 'Sankalp Singh',
     email: 'sankalpkumar.singh60@gmail.com',
-    title: 'Senior React Native Developer',
+    title: 'React Native Developer',
     bio: 'Passionate React Native developer with 4+ years of experience building high-quality mobile applications for iOS and Android. Specialized in creating performant, user-friendly apps with clean architecture and modern development practices.',
     yearsOfExperience: 4,
-    location: 'Your Location',
+    location: 'Pune, India',
   },
   social: {
     github: 'https://github.com/imsankalp',
@@ -84,15 +84,13 @@ export const skills: Skill[] = [
 export const projects: Project[] = [
   {
     id: 'project-1',
-    title: 'E-Commerce Mobile App',
-    description: 'A full-featured e-commerce mobile application built with React Native. Includes product browsing, cart management, payment integration, and order tracking. Features smooth animations and optimized performance.',
-    technologies: ['React Native', 'TypeScript', 'Redux', 'Stripe', 'Firebase'],
-    image: '/images/projects/ecommerce-app.jpg',
+    title: 'react-native-network-tool',
+    description: "A powerful React Native library that allows you to track and inspect all network requests in your app. Perfect for debugging, monitoring, and understanding your app's network behavior.",
+    technologies: ['React Native', 'TypeScript', 'Kotlin', 'Objective C'],
+    image: '/network-logger.png',
     links: {
       demo: 'https://example.com/demo',
-      github: 'https://github.com/yourusername/ecommerce-app',
-      appStore: 'https://apps.apple.com/app/your-app',
-      playStore: 'https://play.google.com/store/apps/details?id=com.yourapp',
+      github: 'https://github.com/imsankalp/react-native-network-tools',
     },
     featured: true,
   },
