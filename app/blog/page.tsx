@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { motion } from 'framer-motion';
-import { blogPosts, siteConfig } from '@/lib/constants';
+import { siteConfig } from '@/lib/constants';
 import { BlogCard } from '@/components/ui';
 import { Navigation, Footer } from '@/components/layout';
 import { navigationLinks, socialLinks, copyrightText } from '@/lib/constants';
+import { blogService } from '@/lib/blog/blog-service';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -20,11 +20,9 @@ export const metadata: Metadata = {
  * - Semantic HTML
  * - Responsive grid layout
  */
-export default function BlogPage() {
-  // Sort posts by date (newest first)
-  const sortedPosts = [...blogPosts].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
+export default async function BlogPage() {
+  // Fetch all blogs from markdown files
+  const sortedPosts = await blogService.getAllBlogs();
 
   return (
     <>

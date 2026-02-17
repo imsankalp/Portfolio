@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ExternalLink, FileText } from 'lucide-react';
-import { BlogPost } from '@/lib/types';
+import { Calendar, Clock, FileText } from 'lucide-react';
+import { BlogPost } from '@/lib/blog/types';
 import { fadeInUp } from '@/lib/animations';
 
 interface BlogCardProps {
@@ -37,9 +37,8 @@ export function BlogCard({ post }: BlogCardProps) {
     });
   };
 
-  // Determine link (external URL or internal slug)
-  const postLink = post.externalUrl || `/blog/${post.slug}`;
-  const isExternal = !!post.externalUrl;
+  // Determine link (internal slug)
+  const postLink = `/blog/${post.slug}`;
 
   return (
     <motion.article
@@ -53,8 +52,6 @@ export function BlogCard({ post }: BlogCardProps) {
     >
       <a
         href={postLink}
-        target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
         className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-xl"
       >
         {/* Thumbnail */}
@@ -82,9 +79,6 @@ export function BlogCard({ post }: BlogCardProps) {
           {/* Title */}
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {post.title}
-            {isExternal && (
-              <ExternalLink className="inline-block ml-2 h-4 w-4" aria-hidden="true" />
-            )}
           </h3>
 
           {/* Excerpt */}

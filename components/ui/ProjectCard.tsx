@@ -50,7 +50,11 @@ export function ProjectCard({ project, layout = 'grid' }: ProjectCardProps) {
             alt={`Screenshot of ${project.title} application`}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-110"
-            onError={() => setImageError(true)}
+            onError={(e) => {
+              console.log('errrrrrrrr', e);
+              setImageError(true)
+              
+            }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
