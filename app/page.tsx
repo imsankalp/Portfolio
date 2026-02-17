@@ -1,5 +1,3 @@
-'use client';
-
 import { Hero, About, Skills, Projects, Blog, SpotifyWidget, Contact } from '@/components/sections';
 import { Navigation, Footer } from '@/components/layout';
 import {
@@ -7,15 +5,12 @@ import {
   aboutContent,
   skills,
   projects,
-  blogPosts,
   navigationLinks,
   socialLinks,
   copyrightText,
   siteConfig,
 } from '@/lib/constants';
-
-// Disable prerendering for this page
-export const dynamic = 'force-dynamic';
+import { blogService } from '@/lib/blog/blog-service';
 
 /**
  * Homepage
@@ -28,7 +23,9 @@ export const dynamic = 'force-dynamic';
  * - Blog (preview)
  * - Contact
  */
-export default function Home() {
+export default async function Home() {
+  // Fetch blog posts from markdown files
+  const blogPosts = await blogService.getAllBlogs();
   return (
     <>
       <Navigation links={navigationLinks} logo={siteConfig.name} />

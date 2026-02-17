@@ -2,21 +2,24 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
-import { blogPosts, siteConfig } from '@/lib/constants';
+import { siteConfig } from '@/lib/constants';
 import { Navigation, Footer } from '@/components/layout';
 import { navigationLinks, socialLinks, copyrightText } from '@/lib/constants';
+import { blogService } from '@/lib/blog/blog-service';
+import { markdownProcessor } from '@/lib/blog/markdown-processor';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 /**
  * Generate metadata for blog post page
  */
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+  const { slug } = await params;
+  const post = await blogService.getBlogBySlug(slug);
 
   if (!post) {
     return {
@@ -48,7 +51,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
  * Generate static params for all blog posts
  */
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
+  const posts = await blogService.getAllBlogs();
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
@@ -57,7 +61,9 @@ export async function generateStaticParams() {
  * ArticleSchema Component
  * Structured data for blog post SEO
  */
-function ArticleSchema({ post }: { post: typeof blogPosts[0] }) {
+function ArticleSchema({ post }: { post: Awaited<ReturnType<typeof blogService.getBlogBySlug>> }) {
+  if (!post) return null;
+  
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -90,12 +96,16 @@ function ArticleSchema({ post }: { post: typeof blogPosts[0] }) {
  * - Back to blog link
  * - Semantic HTML (article, h1)
  */
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = await blogService.getBlogBySlug(slug);
 
   if (!post) {
     notFound();
   }
+
+  // Render markdown to HTML
+  const renderedContent = await markdownProcessor.renderToHtml(post.content);
 
   // Format date
   const formatDate = (dateString: string) => {
@@ -158,27 +168,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Post Content */}
           <div className="prose prose-lg dark:prose-invert max-w-none">
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-              {post.excerpt}
-            </p>
-
-            {/* Placeholder for actual blog content */}
-            <div className="bg-gray-50 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
-              <p className="text-gray-600 dark:text-gray-400">
-                Blog post content would be displayed here.
-                <br />
-                <br />
-                In a real implementation, you would:
-                <br />
-                • Use MDX for rich content
-                <br />
-                • Connect to a CMS (Contentful, Sanity, etc.)
-                <br />
-                • Store content in markdown files
-                <br />
-                • Or use a headless CMS API
-              </p>
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: renderedContent }} />
           </div>
 
           {/* Post Footer */}

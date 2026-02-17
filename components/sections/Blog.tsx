@@ -3,9 +3,14 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { BlogProps } from '@/lib/types';
+import { BlogPost } from '@/lib/blog/types';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { BlogCard } from '@/components/ui';
+
+interface BlogProps {
+  posts: BlogPost[];
+  maxPosts?: number;
+}
 
 /**
  * Blog Section Component
